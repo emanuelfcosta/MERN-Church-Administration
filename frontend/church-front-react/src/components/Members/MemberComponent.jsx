@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 
 import { getAllChurches } from "../../services/ChurchService";
 
+import { useNavigate } from "react-router-dom";
+import { createMember } from "../../services/MemberService";
+
 const MemberComponent = () => {
   const [name, setName] = useState("");
   const [status, setStatus] = useState("");
@@ -13,6 +16,8 @@ const MemberComponent = () => {
   const [address, setAddress] = useState("");
   const [state, setState] = useState("");
   const [occupation, setOccupation] = useState("");
+
+  const navigator = useNavigate();
 
   // for churches
 
@@ -62,12 +67,12 @@ const MemberComponent = () => {
       occupation,
     };
 
-    console.log(member);
+    // console.log(member);
 
-    // createPet(pet).then((response) => {
-    //   console.log(response.data);
-    //   navigator("/pets");
-    // });
+    createMember(member).then((response) => {
+      console.log(response.data);
+      navigator("/members");
+    });
   }
 
   return (
