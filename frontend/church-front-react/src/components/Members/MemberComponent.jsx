@@ -53,26 +53,117 @@ const MemberComponent = () => {
   function saveMember(e) {
     e.preventDefault();
 
-    const member = {
-      church,
-      status,
-      role,
-      baptismdate,
-      addmission,
-      name,
-      gender,
-      birthdate,
-      address,
-      state,
-      occupation,
-    };
+    if (validateForm()) {
+      const member = {
+        church,
+        status,
+        role,
+        baptismdate,
+        addmission,
+        name,
+        gender,
+        birthdate,
+        address,
+        state,
+        occupation,
+      };
 
-    // console.log(member);
+      console.log(member);
 
-    createMember(member).then((response) => {
-      console.log(response.data);
-      navigator("/members");
-    });
+      createMember(member).then((response) => {
+        console.log(response.data);
+        navigator("/members");
+      });
+    }
+  }
+
+  function validateForm() {
+    let valid = true;
+
+    const errorsCopy = { ...errors };
+
+    if (church) {
+      errorsCopy.church = "";
+    } else {
+      errorsCopy.church = "Select Church";
+      valid = false;
+    }
+
+    if (status) {
+      errorsCopy.status = "";
+    } else {
+      errorsCopy.status = "Select Status";
+      valid = false;
+    }
+
+    if (role) {
+      errorsCopy.role = "";
+    } else {
+      errorsCopy.role = "Select Role";
+      valid = false;
+    }
+
+    if (baptismdate.trim()) {
+      errorsCopy.baptismdate = "";
+    } else {
+      errorsCopy.baptismdate = "Baptism date is required";
+      valid = false;
+    }
+
+    if (addmission) {
+      errorsCopy.addmission = "";
+    } else {
+      errorsCopy.addmission = "addmission is required";
+      valid = false;
+    }
+
+    if (name.trim()) {
+      errorsCopy.name = "";
+    } else {
+      errorsCopy.name = "Name is required";
+      valid = false;
+    }
+
+    if (gender.trim()) {
+      errorsCopy.gender = "";
+    } else {
+      errorsCopy.gender = "Gender is required";
+      valid = false;
+    }
+
+    if (birthdate.trim()) {
+      errorsCopy.birthdate = "";
+    } else {
+      errorsCopy.birthdate = "Birthdate is required";
+      valid = false;
+    }
+
+    if (address.trim()) {
+      errorsCopy.address = "";
+    } else {
+      errorsCopy.address = "Address is required";
+      valid = false;
+    }
+
+    if (state.trim()) {
+      errorsCopy.state = "";
+    } else {
+      errorsCopy.state = "State is required";
+      valid = false;
+    }
+
+    if (occupation.trim()) {
+      errorsCopy.occupation = "";
+    } else {
+      errorsCopy.occupation = "Occupation is required";
+      valid = false;
+    }
+
+    setErrors(errorsCopy);
+
+    console.log(errorsCopy);
+
+    return valid;
   }
 
   return (
@@ -210,7 +301,7 @@ const MemberComponent = () => {
                   <option value="">Select gender</option>
                   <option value="Male">Male</option>
                   <option value="Female">Female</option>
-                  <option value="Other">Outro</option>
+                  <option value="Other">Other</option>
                 </select>
                 {errors.gender && (
                   <div className="invalid-feedback">{errors.gender}</div>
