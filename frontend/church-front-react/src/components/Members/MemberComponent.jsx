@@ -2,8 +2,12 @@ import React, { useEffect, useState } from "react";
 
 import { getAllChurches } from "../../services/ChurchService";
 
-import { useNavigate } from "react-router-dom";
-import { createMember } from "../../services/MemberService";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  createMember,
+  getMemberById,
+  updateMember,
+} from "../../services/MemberService";
 
 const MemberComponent = () => {
   const [name, setName] = useState("");
@@ -21,8 +25,8 @@ const MemberComponent = () => {
 
   // for churches
 
-  const [church, setChurch] = useState(""); // selecionar a igreja
-  const [churches, setChurches] = useState([]); // selecionar a igreja
+  const [church, setChurch] = useState(""); // select the church
+  const [churches, setChurches] = useState([]); // select the church
 
   useEffect(() => {
     getAllChurches()
@@ -35,6 +39,33 @@ const MemberComponent = () => {
         console.error(error);
       });
   }, []);
+
+  const { id } = useParams();
+
+  useEffect(() => {
+    if (id) {
+      getMemberById(id)
+        .then((response) => {
+          console.log(response.data);
+          setChurch(response.data.church._id);
+          setName(response.data.name);
+          setStatus(response.data.status);
+          setRole(response.data.role);
+          //  yyyy-MM-dd format
+          setBaptismdate(response.data.baptismdate.split("T")[0]);
+          setAddmission(response.data.addmission);
+          setGender(response.data.gender);
+          //  yyyy-MM-dd format
+          setBirthdate(response.data.birthdate.split("T")[0]);
+          setAddress(response.data.address);
+          setState(response.data.state);
+          setOccupation(response.data.occupation);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, [id]);
 
   const [errors, setErrors] = useState({
     church: "",
@@ -50,7 +81,15 @@ const MemberComponent = () => {
     occupation: "",
   });
 
-  function saveMember(e) {
+  function pageTitle() {
+    if (id) {
+      return <h2 className="text-center">Update Member</h2>;
+    } else {
+      return <h2 className="text-center">Add Member</h2>;
+    }
+  }
+
+  function saveOrUpdateMember(e) {
     e.preventDefault();
 
     if (validateForm()) {
@@ -68,12 +107,30 @@ const MemberComponent = () => {
         occupation,
       };
 
-      console.log(member);
+      // console.log(member);
 
-      createMember(member).then((response) => {
-        console.log(response.data);
-        navigator("/members");
-      });
+      if (id) {
+        //update
+        updateMember(id, member)
+          .then((response) => {
+            console.log(response.data);
+            navigator("/members");
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      } else {
+        //insert
+
+        createMember(member)
+          .then((response) => {
+            console.log(response.data);
+            navigator("/members");
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
     }
   }
 
@@ -171,6 +228,7 @@ const MemberComponent = () => {
       <br /> <br />
       <div className="row">
         <div className="card col-md-10 offset-md-1 offset-md-1">
+          {pageTitle()}
           <div className="card-body">
             <form>
               <div className="form-group mb-2">
@@ -393,7 +451,7 @@ const MemberComponent = () => {
                 )}
               </div>
 
-              <button className="btn btn-success" onClick={saveMember}>
+              <button className="btn btn-success" onClick={saveOrUpdateMember}>
                 Save
               </button>
             </form>

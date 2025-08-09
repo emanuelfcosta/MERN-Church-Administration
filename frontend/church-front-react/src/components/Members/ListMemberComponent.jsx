@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getAllMembers } from "../../services/MemberService";
+import { deleteMember, getAllMembers } from "../../services/MemberService";
 import { useNavigate } from "react-router-dom";
 
 const ListMemberComponent = () => {
@@ -26,6 +26,21 @@ const ListMemberComponent = () => {
     navigator("/add-member");
   }
 
+  function updateMember(id) {
+    navigator(`/edit-member/${id}`);
+  }
+
+  function removeMember(id) {
+    deleteMember(id)
+      .then((response) => {
+        console.log(response.data);
+        listOfMembers();
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
   return (
     <div className="container">
       <h2 className="text-center">List of Members</h2>
@@ -50,7 +65,21 @@ const ListMemberComponent = () => {
               <td>{member.name}</td>
               <td>{member.occupation}</td>
               <td>{member.church.name}</td>
-              <td></td>
+              <td>
+                <button
+                  onClick={() => updateMember(member._id)}
+                  className="btn btn-info"
+                >
+                  Update
+                </button>
+                <button
+                  onClick={() => removeMember(member._id)}
+                  className="btn btn-danger"
+                  style={{ marginLeft: "10px" }}
+                >
+                  Delete
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>

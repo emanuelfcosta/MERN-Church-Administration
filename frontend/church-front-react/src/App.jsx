@@ -25,6 +25,8 @@ function App() {
           <Route path="/members" element={<ListMemberComponent />}></Route>
           {/* http://localhost:5173/add-member */}
           <Route path="/add-member" element={<MemberComponent />}></Route>
+          {/* //localhost:5173/edit-member/1 */}
+          <Route path="/edit-member/:id" element={<MemberComponent />}></Route>
         </Routes>
       </BrowserRouter>
     </>
