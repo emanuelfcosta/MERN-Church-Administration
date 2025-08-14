@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { getAllStudy } from "../../services/StudyService";
+import { useNavigate } from "react-router-dom";
 
 const ListStudyComponent = () => {
   const [study, setStudy] = useState([]);
+
+  const navigator = useNavigate();
 
   useEffect(() => {
     listOfStudy();
@@ -19,10 +22,18 @@ const ListStudyComponent = () => {
       });
   }
 
+  function addNewStudy() {
+    navigator("/add-study");
+  }
+
   return (
     <div className="container">
       <br />
       <h2 className="text-center">List of Study</h2>
+      <button className="btn btn-success" onClick={addNewStudy}>
+        Add Study
+      </button>
+
       <table className="table table-striped ">
         <thead>
           <tr>

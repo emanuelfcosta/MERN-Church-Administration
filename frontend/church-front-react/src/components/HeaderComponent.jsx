@@ -35,6 +35,11 @@ const HeaderComponent = () => {
                     Member
                   </a>
                 </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="/study">
+                    Study
+                  </a>
+                </li>
               </ul>
             </div>
           </div>

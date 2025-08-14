@@ -7,6 +7,7 @@ import ChurchComponent from "./components/Churches/ChurchComponent";
 import ListMemberComponent from "./components/Members/ListMemberComponent";
 import MemberComponent from "./components/Members/MemberComponent";
 import ListStudyComponent from "./components/Study/ListStudyComponent";
+import StudyComponent from "./components/Study/StudyComponent";
 
 function App() {
   return (
@@ -30,6 +31,8 @@ function App() {
           <Route path="/edit-member/:id" element={<MemberComponent />}></Route>
           {/*http://localhost:5173/study */}
           <Route path="/study" element={<ListStudyComponent />}></Route>
+          {/* http://localhost:5173/add-study */}
+          <Route path="/add-study" element={<StudyComponent />}></Route>
         </Routes>
       </BrowserRouter>
     </>
