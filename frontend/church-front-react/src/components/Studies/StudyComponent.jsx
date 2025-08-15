@@ -20,20 +20,62 @@ const StudyComponent = () => {
   function saveStudy(e) {
     e.preventDefault();
 
-    const study = {
-      theDate,
-      subject,
-      description,
-      notes,
-    };
+    if (validateForm()) {
+      const study = {
+        theDate,
+        subject,
+        description,
+        notes,
+      };
 
-    // console.log(study);
+      // console.log(study);
 
-    createStudy(study).then((response) => {
-      console.log(response.data);
-      navigator("/study");
-    });
+      createStudy(study).then((response) => {
+        console.log(response.data);
+        navigator("/study");
+      });
+    }
   }
+
+  function validateForm() {
+    let valid = true;
+
+    const errorsCopy = { ...errors };
+
+    if (theDate) {
+      errorsCopy.theDate = "";
+    } else {
+      errorsCopy.theDate = "Date is required";
+      valid = false;
+    }
+
+    if (subject.trim()) {
+      errorsCopy.subject = "";
+    } else {
+      errorsCopy.subject = "Subject is required";
+      valid = false;
+    }
+
+    if (description.trim()) {
+      errorsCopy.description = "";
+    } else {
+      errorsCopy.description = "Description is required";
+      valid = false;
+    }
+
+    if (notes.trim()) {
+      errorsCopy.notes = "";
+    } else {
+      errorsCopy.notes = "Notes is required";
+      valid = false;
+    }
+
+    setErrors(errorsCopy);
+
+    console.log(errorsCopy);
+
+    return valid;
+  } //validateForm
 
   return (
     <div className="container">
