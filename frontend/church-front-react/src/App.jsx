@@ -6,8 +6,8 @@ import IndexComponent from "./components/IndexComponent";
 import ChurchComponent from "./components/Churches/ChurchComponent";
 import ListMemberComponent from "./components/Members/ListMemberComponent";
 import MemberComponent from "./components/Members/MemberComponent";
-import ListStudyComponent from "./components/Study/ListStudyComponent";
-import StudyComponent from "./components/Study/StudyComponent";
+import ListStudyComponent from "./components/Studies/ListStudyComponent";
+import StudyComponent from "./components/Studies/StudyComponent";
 
 function App() {
   return (

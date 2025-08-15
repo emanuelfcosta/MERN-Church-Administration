@@ -26,6 +26,12 @@ const ListStudyComponent = () => {
     navigator("/add-study");
   }
 
+  // shows the date in  dd/mm/yyyy format
+  function formatDate(date) {
+    const options = { day: "2-digit", month: "2-digit", year: "numeric" };
+    return new Date(date).toLocaleDateString("pt-BR", options);
+  }
+
   return (
     <div className="container">
       <br />
@@ -48,7 +54,7 @@ const ListStudyComponent = () => {
           {study.map((theStudy) => (
             <tr key={theStudy._id}>
               <td>{theStudy._id}</td>
-              <td>{theStudy.theDate}</td>
+              <td>{formatDate(theStudy.theDate)}</td>
               <td>{theStudy.subject}</td>
               <td>{theStudy.description}</td>
               <td></td>

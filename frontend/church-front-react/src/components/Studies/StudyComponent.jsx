@@ -1,10 +1,14 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { createStudy } from "../../services/StudyService";
 
 const StudyComponent = () => {
   const [theDate, setTheDate] = useState("");
   const [subject, setSubject] = useState("");
   const [description, setDescription] = useState("");
   const [notes, setNotes] = useState("");
+
+  const navigator = useNavigate();
 
   const [errors, setErrors] = useState({
     theDate: "",
@@ -23,7 +27,12 @@ const StudyComponent = () => {
       notes,
     };
 
-    console.log(study);
+    // console.log(study);
+
+    createStudy(study).then((response) => {
+      console.log(response.data);
+      navigator("/study");
+    });
   }
 
   return (
