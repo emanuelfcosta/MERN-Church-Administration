@@ -26,10 +26,19 @@ const ListStudyComponent = () => {
     navigator("/add-study");
   }
 
+  function updateStudy(id) {
+    navigator(`/edit-study/${id}`);
+  }
+
   // shows the date in  dd/mm/yyyy format
-  function formatDate(date) {
-    const options = { day: "2-digit", month: "2-digit", year: "numeric" };
-    return new Date(date).toLocaleDateString("pt-BR", options);
+  function formatDate(isoString) {
+    const myDate = new Date(isoString);
+
+    const day = String(myDate.getUTCDate()).padStart(2, "0");
+    const month = String(myDate.getUTCMonth() + 1).padStart(2, "0");
+    const year = myDate.getUTCFullYear();
+
+    return `${day}/${month}/${year}`;
   }
 
   return (
@@ -57,7 +66,14 @@ const ListStudyComponent = () => {
               <td>{formatDate(theStudy.theDate)}</td>
               <td>{theStudy.subject}</td>
               <td>{theStudy.description}</td>
-              <td></td>
+              <td>
+                <button
+                  onClick={() => updateStudy(theStudy._id)}
+                  className="btn btn-info"
+                >
+                  Update
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>

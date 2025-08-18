@@ -33,6 +33,8 @@ function App() {
           <Route path="/study" element={<ListStudyComponent />}></Route>
           {/* http://localhost:5173/add-study */}
           <Route path="/add-study" element={<StudyComponent />}></Route>
+          {/* //localhost:5173/edit-study/1 */}
+          <Route path="/edit-study/:id" element={<StudyComponent />}></Route>
         </Routes>
       </BrowserRouter>
     </>

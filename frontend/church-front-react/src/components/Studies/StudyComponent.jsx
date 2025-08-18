@@ -1,6 +1,10 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { createStudy } from "../../services/StudyService";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  createStudy,
+  getStudyById,
+  updateStudy,
+} from "../../services/StudyService";
 
 const StudyComponent = () => {
   const [theDate, setTheDate] = useState("");
@@ -10,6 +14,8 @@ const StudyComponent = () => {
 
   const navigator = useNavigate();
 
+  const { id } = useParams();
+
   const [errors, setErrors] = useState({
     theDate: "",
     subject: "",
@@ -17,7 +23,34 @@ const StudyComponent = () => {
     notes: "",
   });
 
-  function saveStudy(e) {
+  useEffect(() => {
+    if (id) {
+      getStudyById(id)
+        .then((response) => {
+          // console.log(response.data);
+
+          // Convert the date to yyyy-MM-dd format
+          setTheDate(response.data.theDate.split("T")[0]);
+          //  setTheDate(response.data.theDate);
+          setSubject(response.data.subject);
+          setDescription(response.data.description);
+          setNotes(response.data.notes);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, [id]);
+
+  function pageTitle() {
+    if (id) {
+      return <h2 className="text-center">Update Study</h2>;
+    } else {
+      return <h2 className="text-center">Add Study</h2>;
+    }
+  }
+
+  function saveorUpdateStudy(e) {
     e.preventDefault();
 
     if (validateForm()) {
@@ -28,12 +61,27 @@ const StudyComponent = () => {
         notes,
       };
 
-      // console.log(study);
+      if (id) {
+        updateStudy(id, study)
+          .then((response) => {
+            console.log(response.data);
+            navigator("/study");
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      } else {
+        createStudy(study)
+          .then((response) => {
+            console.log(response.data);
+            navigator("/study");
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
 
-      createStudy(study).then((response) => {
-        console.log(response.data);
-        navigator("/study");
-      });
+      // console.log(study);
     }
   }
 
@@ -82,6 +130,7 @@ const StudyComponent = () => {
       <br /> <br />
       <div className="row">
         <div className="card col-md-10 offset-md-1 offset-md-1">
+          {pageTitle()}
           <div className="card-body">
             <form>
               <div className="form-group mb-2">
@@ -143,7 +192,7 @@ const StudyComponent = () => {
                 )}
               </div>
 
-              <button className="btn btn-success" onClick={saveStudy}>
+              <button className="btn btn-success" onClick={saveorUpdateStudy}>
                 {" "}
                 Save{" "}
               </button>
