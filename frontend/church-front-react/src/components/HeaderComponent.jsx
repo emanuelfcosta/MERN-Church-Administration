@@ -40,6 +40,11 @@ const HeaderComponent = () => {
                     Study
                   </a>
                 </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="/occasions">
+                    Occasion
+                  </a>
+                </li>
               </ul>
             </div>
           </div>

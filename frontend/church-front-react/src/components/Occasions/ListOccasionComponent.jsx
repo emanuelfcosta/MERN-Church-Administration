@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { getAllOccasions } from "../../services/OccasionService";
+import { useNavigate } from "react-router-dom";
 
 const ListOccasionComponent = () => {
   const [occasions, setOccasions] = useState([]);
+
+  const navigator = useNavigate();
 
   useEffect(() => {
     listOfOccasions();
@@ -30,9 +33,18 @@ const ListOccasionComponent = () => {
     return `${day}/${month}/${year}`;
   }
 
+  function addNewOccasion() {
+    navigator("/add-occasion");
+  }
+
   return (
     <div className="container">
-      <div className="text-center">List of Occasions</div>
+      <br />
+      <h2 className="text-center">List of Occasions</h2>
+
+      <button className="btn btn-success" onClick={addNewOccasion}>
+        Add Occasion
+      </button>
 
       <table className="table table-striped table-bordered">
         <thead>

@@ -9,6 +9,7 @@ import MemberComponent from "./components/Members/MemberComponent";
 import ListStudyComponent from "./components/Studies/ListStudyComponent";
 import StudyComponent from "./components/Studies/StudyComponent";
 import ListOccasionComponent from "./components/Occasions/ListOccasionComponent";
+import OccasionComponent from "./components/Occasions/OccasionComponent";
 
 function App() {
   return (
@@ -38,6 +39,8 @@ function App() {
           <Route path="/edit-study/:id" element={<StudyComponent />}></Route>
           {/*http://localhost:5173/occasions */}
           <Route path="/occasions" element={<ListOccasionComponent />}></Route>
+          {/* http://localhost:5173/add-occasion */}
+          <Route path="/add-occasion" element={<OccasionComponent />}></Route>
         </Routes>
       </BrowserRouter>
     </>
