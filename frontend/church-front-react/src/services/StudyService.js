@@ -11,3 +11,6 @@ export const getStudyById = (studyId) =>
 
 export const updateStudy = (studyId, study) =>
   axios.put(REST_API_BASE_URL + "/" + studyId, study);
+
+export const deleteStudy = (studyId) =>
+  axios.delete(REST_API_BASE_URL + "/" + studyId);
