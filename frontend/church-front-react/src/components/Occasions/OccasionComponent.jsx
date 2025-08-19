@@ -1,10 +1,14 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { createOccasion } from "../../services/OccasionService";
 
 const OccasionComponent = () => {
   const [start, setStart] = useState("");
   const [end, setEnd] = useState("");
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+
+  const navigator = useNavigate();
 
   const [errors, setErrors] = useState({
     start: "",
@@ -23,7 +27,12 @@ const OccasionComponent = () => {
       description,
     };
 
-    console.log(occasion);
+    // console.log(occasion);
+
+    createOccasion(occasion).then((response) => {
+      console.log(response.data);
+      navigator("/occasions");
+    });
   }
 
   return (
