@@ -37,6 +37,10 @@ const ListOccasionComponent = () => {
     navigator("/add-occasion");
   }
 
+  function updateOccasion(id) {
+    navigator(`/edit-occasion/${id}`);
+  }
+
   return (
     <div className="container">
       <br />
@@ -46,7 +50,7 @@ const ListOccasionComponent = () => {
         Add Occasion
       </button>
 
-      <table className="table table-striped table-bordered">
+      <table className="table table-striped ">
         <thead>
           <tr>
             <th>id</th>
@@ -63,17 +67,16 @@ const ListOccasionComponent = () => {
               <td>{formatDate(occasion.start)}</td>
               <td>{formatDate(occasion.end)}</td>
               <td>{occasion.name}</td>
-              <td></td>
+              <td>
+                <button
+                  onClick={() => updateOccasion(occasion._id)}
+                  className="btn btn-info"
+                >
+                  Update
+                </button>
+              </td>
             </tr>
           ))}
-
-          <tr>
-            <td>1</td>
-            <td>12/08/2025</td>
-            <td>13/08/2025</td>
-            <td>Aniversario da Igreja</td>
-            <td></td>
-          </tr>
         </tbody>
       </table>
     </div>

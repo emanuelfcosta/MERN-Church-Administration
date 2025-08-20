@@ -50,7 +50,7 @@ const StudyComponent = () => {
     }
   }
 
-  function saveorUpdateStudy(e) {
+  function saveOrUpdateStudy(e) {
     e.preventDefault();
 
     if (validateForm()) {
@@ -192,7 +192,7 @@ const StudyComponent = () => {
                 )}
               </div>
 
-              <button className="btn btn-success" onClick={saveorUpdateStudy}>
+              <button className="btn btn-success" onClick={saveOrUpdateStudy}>
                 {" "}
                 Save{" "}
               </button>

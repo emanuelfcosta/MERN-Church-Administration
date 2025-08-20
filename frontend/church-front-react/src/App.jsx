@@ -41,6 +41,11 @@ function App() {
           <Route path="/occasions" element={<ListOccasionComponent />}></Route>
           {/* http://localhost:5173/add-occasion */}
           <Route path="/add-occasion" element={<OccasionComponent />}></Route>
+          {/* //localhost:5173/edit-occasion/1 */}
+          <Route
+            path="/edit-occasion/:id"
+            element={<OccasionComponent />}
+          ></Route>
         </Routes>
       </BrowserRouter>
     </>

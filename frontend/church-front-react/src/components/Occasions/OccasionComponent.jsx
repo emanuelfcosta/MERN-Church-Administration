@@ -1,6 +1,10 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { createOccasion } from "../../services/OccasionService";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  createOccasion,
+  getOccasionById,
+  updateOccasion,
+} from "../../services/OccasionService";
 
 const OccasionComponent = () => {
   const [start, setStart] = useState("");
@@ -10,6 +14,8 @@ const OccasionComponent = () => {
 
   const navigator = useNavigate();
 
+  const { id } = useParams();
+
   const [errors, setErrors] = useState({
     start: "",
     end: "",
@@ -17,7 +23,34 @@ const OccasionComponent = () => {
     description: "",
   });
 
-  function saveOccasion(e) {
+  useEffect(() => {
+    if (id) {
+      getOccasionById(id)
+        .then((response) => {
+          // console.log(response.data);
+
+          // Convert the date to yyyy-MM-dd format
+          setStart(response.data.start.split("T")[0]);
+          // Convert the date to yyyy-MM-dd format
+          setEnd(response.data.end.split("T")[0]);
+          setName(response.data.name);
+          setDescription(response.data.description);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, [id]);
+
+  function pageTitle() {
+    if (id) {
+      return <h2 className="text-center">Update Occasion</h2>;
+    } else {
+      return <h2 className="text-center">Add Occasion</h2>;
+    }
+  }
+
+  function saveOrUpdateOccasion(e) {
     e.preventDefault();
 
     if (validateForm()) {
@@ -28,12 +61,25 @@ const OccasionComponent = () => {
         description,
       };
 
-      // console.log(occasion);
-
-      createOccasion(occasion).then((response) => {
-        console.log(response.data);
-        navigator("/occasions");
-      });
+      if (id) {
+        updateOccasion(id, occasion)
+          .then((response) => {
+            console.log(response.data);
+            navigator("/occasions");
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      } else {
+        createOccasion(occasion)
+          .then((response) => {
+            console.log(response.data);
+            navigator("/occasions");
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
     }
   }
 
@@ -82,6 +128,7 @@ const OccasionComponent = () => {
       <br /> <br />
       <div className="row">
         <div className="card col-md-10 offset-md-1 offset-md-1">
+          {pageTitle()}
           <div className="card-body">
             <form>
               <div className="form-group mb-2">
@@ -139,7 +186,10 @@ const OccasionComponent = () => {
                 )}
               </div>
 
-              <button className="btn btn-success" onClick={saveOccasion}>
+              <button
+                className="btn btn-success"
+                onClick={saveOrUpdateOccasion}
+              >
                 {" "}
                 Save{" "}
               </button>
