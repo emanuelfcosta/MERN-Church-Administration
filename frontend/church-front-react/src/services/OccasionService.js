@@ -12,3 +12,6 @@ export const getOccasionById = (occasionId) =>
 
 export const updateOccasion = (occasionId, occasion) =>
   axios.put(REST_API_BASE_URL + "/" + occasionId, occasion);
+
+export const deleteOccasion = (occasionId) =>
+  axios.delete(REST_API_BASE_URL + "/" + occasionId);
