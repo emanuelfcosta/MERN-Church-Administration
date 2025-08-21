@@ -10,6 +10,7 @@ import ListStudyComponent from "./components/Studies/ListStudyComponent";
 import StudyComponent from "./components/Studies/StudyComponent";
 import ListOccasionComponent from "./components/Occasions/ListOccasionComponent";
 import OccasionComponent from "./components/Occasions/OccasionComponent";
+import ListPrayComponent from "./components/Prayers/ListPrayComponent";
 
 function App() {
   return (
@@ -46,6 +47,9 @@ function App() {
             path="/edit-occasion/:id"
             element={<OccasionComponent />}
           ></Route>
+
+          {/*http://localhost:5173/prayers */}
+          <Route path="/prayers" element={<ListPrayComponent />}></Route>
         </Routes>
       </BrowserRouter>
     </>

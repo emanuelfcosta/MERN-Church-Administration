@@ -45,6 +45,11 @@ const HeaderComponent = () => {
                     Occasion
                   </a>
                 </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="/prayers">
+                    Pray
+                  </a>
+                </li>
               </ul>
             </div>
           </div>
