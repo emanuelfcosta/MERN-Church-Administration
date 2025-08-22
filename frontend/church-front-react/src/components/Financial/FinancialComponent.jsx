@@ -22,25 +22,74 @@ const FinancialComponent = () => {
   function saveFinancial(e) {
     e.preventDefault();
 
-    const financial = {
-      type,
-      description,
-      amount,
-      theDate,
-      paymentMethod,
-    };
+    if (validateForm()) {
+      const financial = {
+        type,
+        description,
+        amount,
+        theDate,
+        paymentMethod,
+      };
 
-    // console.log(financial);
+      // console.log(financial);
 
-    createFinancial(financial)
-      .then((response) => {
-        console.log(response.data);
-        navigator("/financial");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      createFinancial(financial)
+        .then((response) => {
+          console.log(response.data);
+          navigator("/financial");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   }
+
+  function validateForm() {
+    let valid = true;
+
+    const errorsCopy = { ...errors };
+
+    if (type.trim()) {
+      errorsCopy.type = "";
+    } else {
+      errorsCopy.type = "Type is required";
+      valid = false;
+    }
+
+    if (description.trim()) {
+      errorsCopy.description = "";
+    } else {
+      errorsCopy.description = "Description is required";
+      valid = false;
+    }
+
+    if (amount && !isNaN(amount) && amount > 0) {
+      errorsCopy.amount = "";
+    } else {
+      errorsCopy.amount = "Amount is required and must be a positive number";
+      valid = false;
+    }
+
+    if (theDate) {
+      errorsCopy.theDate = "";
+    } else {
+      errorsCopy.theDate = "Date is required";
+      valid = false;
+    }
+
+    if (paymentMethod.trim()) {
+      errorsCopy.paymentMethod = "";
+    } else {
+      errorsCopy.paymentMethod = "Payment Method is required";
+      valid = false;
+    }
+
+    setErrors(errorsCopy);
+
+    console.log(errorsCopy);
+
+    return valid;
+  } //validateForm
 
   return (
     <div className="container">
