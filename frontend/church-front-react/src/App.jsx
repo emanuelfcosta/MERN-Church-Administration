@@ -11,6 +11,7 @@ import StudyComponent from "./components/Studies/StudyComponent";
 import ListOccasionComponent from "./components/Occasions/ListOccasionComponent";
 import OccasionComponent from "./components/Occasions/OccasionComponent";
 import ListPrayComponent from "./components/Prayers/ListPrayComponent";
+import PrayComponent from "./components/Prayers/PrayComponent";
 
 function App() {
   return (
@@ -50,6 +51,8 @@ function App() {
 
           {/*http://localhost:5173/prayers */}
           <Route path="/prayers" element={<ListPrayComponent />}></Route>
+          {/* http://localhost:5173/add-pray */}
+          <Route path="/add-pray" element={<PrayComponent />}></Route>
         </Routes>
       </BrowserRouter>
     </>
