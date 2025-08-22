@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { getAllFinancial } from "../../services/FinancialService";
+import { useNavigate } from "react-router-dom";
 
 const ListFinancialComponent = () => {
   const [financial, setFinancial] = useState([]);
+
+  const navigator = useNavigate();
 
   useEffect(() => {
     listOfFinancial();
@@ -30,10 +33,17 @@ const ListFinancialComponent = () => {
     return `${day}/${month}/${year}`;
   }
 
+  function addNewFinancial() {
+    navigator("/add-financial");
+  }
+
   return (
     <div className="container">
       <br />
       <h2 className="text-center"> Cash Flow</h2>
+      <button className="btn btn-success" onClick={addNewFinancial}>
+        Add Cash Flow
+      </button>
 
       <table className="table table-striped ">
         <thead>
@@ -56,15 +66,6 @@ const ListFinancialComponent = () => {
               <td></td>
             </tr>
           ))}
-
-          <tr>
-            <td>1</td>
-            <td>Income</td>
-            <td>The donations collected</td>
-            <td>500</td>
-            <td>20/03/2025</td>
-            <td></td>
-          </tr>
         </tbody>
       </table>
     </div>
