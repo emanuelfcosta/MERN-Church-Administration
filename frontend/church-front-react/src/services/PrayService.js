@@ -11,3 +11,6 @@ export const getPrayById = (prayId) =>
 
 export const updatePray = (prayId, pray) =>
   axios.put(REST_API_BASE_URL + "/" + prayId, pray);
+
+export const deletePray = (prayId) =>
+  axios.delete(REST_API_BASE_URL + "/" + prayId);
