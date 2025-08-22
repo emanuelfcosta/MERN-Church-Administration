@@ -12,6 +12,7 @@ import ListOccasionComponent from "./components/Occasions/ListOccasionComponent"
 import OccasionComponent from "./components/Occasions/OccasionComponent";
 import ListPrayComponent from "./components/Prayers/ListPrayComponent";
 import PrayComponent from "./components/Prayers/PrayComponent";
+import ListFinancialComponent from "./components/Financial/ListFinancialComponent";
 
 function App() {
   return (
@@ -55,6 +56,9 @@ function App() {
           <Route path="/add-pray" element={<PrayComponent />}></Route>
           {/* //localhost:5173/edit-pray/1 */}
           <Route path="/edit-pray/:id" element={<PrayComponent />}></Route>
+
+          {/*http://localhost:5173/financial */}
+          <Route path="/financial" element={<ListFinancialComponent />}></Route>
         </Routes>
       </BrowserRouter>
     </>
