@@ -53,6 +53,8 @@ function App() {
           <Route path="/prayers" element={<ListPrayComponent />}></Route>
           {/* http://localhost:5173/add-pray */}
           <Route path="/add-pray" element={<PrayComponent />}></Route>
+          {/* //localhost:5173/edit-pray/1 */}
+          <Route path="/edit-pray/:id" element={<PrayComponent />}></Route>
         </Routes>
       </BrowserRouter>
     </>
