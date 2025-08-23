@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { getAllFinancial } from "../../services/FinancialService";
+import {
+  deleteFinancial,
+  getAllFinancial,
+} from "../../services/FinancialService";
 import { useNavigate } from "react-router-dom";
 
 const ListFinancialComponent = () => {
@@ -41,6 +44,17 @@ const ListFinancialComponent = () => {
     navigator(`/edit-financial/${id}`);
   }
 
+  function removeFinancial(id) {
+    deleteFinancial(id)
+      .then((response) => {
+        console.log(response.data);
+        listOfFinancial();
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
   return (
     <div className="container">
       <br />
@@ -73,6 +87,13 @@ const ListFinancialComponent = () => {
                   className="btn btn-info"
                 >
                   Update
+                </button>
+                <button
+                  onClick={() => removeFinancial(theFinancial._id)}
+                  className="btn btn-danger"
+                  style={{ marginLeft: "10px" }}
+                >
+                  Delete
                 </button>
               </td>
             </tr>
