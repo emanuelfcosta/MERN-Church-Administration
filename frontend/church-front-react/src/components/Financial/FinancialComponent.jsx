@@ -1,6 +1,10 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { createFinancial } from "../../services/FinancialService";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  createFinancial,
+  getFinancialById,
+  updateFinancial,
+} from "../../services/FinancialService";
 
 const FinancialComponent = () => {
   const [type, setType] = useState("");
@@ -11,6 +15,27 @@ const FinancialComponent = () => {
 
   const navigator = useNavigate();
 
+  const { id } = useParams();
+
+  useEffect(() => {
+    if (id) {
+      getFinancialById(id)
+        .then((response) => {
+          console.log(response.data);
+          setType(response.data.type);
+          setDescription(response.data.description);
+          setAmount(response.data.amount);
+          // Convert the date to yyyy-MM-dd format
+          setTheDate(response.data.theDate.split("T")[0]);
+
+          setPaymentMethod(response.data.paymentMethod);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, [id]);
+
   const [errors, setErrors] = useState({
     type: "",
     description: "",
@@ -19,7 +44,15 @@ const FinancialComponent = () => {
     paymentMethod: "",
   });
 
-  function saveFinancial(e) {
+  function pageTitle() {
+    if (id) {
+      return <h2 className="text-center">Update Cash Flow</h2>;
+    } else {
+      return <h2 className="text-center">Add Cash Flow</h2>;
+    }
+  }
+
+  function saveOrUpdateFinancial(e) {
     e.preventDefault();
 
     if (validateForm()) {
@@ -33,14 +66,25 @@ const FinancialComponent = () => {
 
       // console.log(financial);
 
-      createFinancial(financial)
-        .then((response) => {
-          console.log(response.data);
-          navigator("/financial");
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      if (id) {
+        updateFinancial(id, financial)
+          .then((response) => {
+            console.log(response.data);
+            navigator("/financial");
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      } else {
+        createFinancial(financial)
+          .then((response) => {
+            console.log(response.data);
+            navigator("/financial");
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
     }
   }
 
@@ -96,7 +140,7 @@ const FinancialComponent = () => {
       <br /> <br />
       <div className="row">
         <div className="card col-md-10 offset-md-1 offset-md-1">
-          <h2 className="text-center">Add Cash Flow</h2>
+          {pageTitle()}
           <div className="card-body">
             <form>
               <div className="form-group mb-2">
@@ -184,7 +228,10 @@ const FinancialComponent = () => {
                 )}
               </div>
 
-              <button className="btn btn-success" onClick={saveFinancial}>
+              <button
+                className="btn btn-success"
+                onClick={saveOrUpdateFinancial}
+              >
                 {" "}
                 Save{" "}
               </button>

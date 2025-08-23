@@ -37,6 +37,10 @@ const ListFinancialComponent = () => {
     navigator("/add-financial");
   }
 
+  function updateFinancial(id) {
+    navigator(`/edit-financial/${id}`);
+  }
+
   return (
     <div className="container">
       <br />
@@ -63,7 +67,14 @@ const ListFinancialComponent = () => {
               <td>{theFinancial.description}</td>
               <td>{theFinancial.amount}</td>
               <td>{formatDate(theFinancial.theDate)}</td>
-              <td></td>
+              <td>
+                <button
+                  onClick={() => updateFinancial(theFinancial._id)}
+                  className="btn btn-info"
+                >
+                  Update
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
