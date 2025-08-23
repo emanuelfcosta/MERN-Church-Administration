@@ -14,6 +14,8 @@ import ListPrayComponent from "./components/Prayers/ListPrayComponent";
 import PrayComponent from "./components/Prayers/PrayComponent";
 import ListFinancialComponent from "./components/Financial/ListFinancialComponent";
 import FinancialComponent from "./components/Financial/FinancialComponent";
+import ListReportComponent from "./components/Reports/ListReportComponent";
+import ChurchesReport from "./components/Reports/ChurchesReport";
 
 function App() {
   return (
@@ -68,6 +70,15 @@ function App() {
           <Route
             path="/edit-financial/:id"
             element={<FinancialComponent />}
+          ></Route>
+
+          {/*http://localhost:5173/reports */}
+          <Route path="/reports" element={<ListReportComponent />}></Route>
+
+          {/*http://localhost:5173/reports/churchesreport */}
+          <Route
+            path="/reports/churchesreport"
+            element={<ChurchesReport />}
           ></Route>
         </Routes>
       </BrowserRouter>

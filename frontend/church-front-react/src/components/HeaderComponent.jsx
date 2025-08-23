@@ -55,6 +55,11 @@ const HeaderComponent = () => {
                     Financial
                   </a>
                 </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="/reports">
+                    Reports
+                  </a>
+                </li>
               </ul>
             </div>
           </div>
