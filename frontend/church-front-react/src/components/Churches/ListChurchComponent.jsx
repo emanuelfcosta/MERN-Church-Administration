@@ -45,7 +45,7 @@ const ListChurchComponent = () => {
     <div className="container">
       <h2 className="text-center">List of Churches</h2>
       <button className="btn btn-success" onClick={addNewChurch}>
-        Add Student
+        Add Church
       </button>
       <table className="table table-striped">
         <thead>

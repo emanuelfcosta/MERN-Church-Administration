@@ -43,6 +43,50 @@ function ListReportComponent() {
           />
           Members
         </label>
+
+        <br />
+        <label>
+          <input
+            type="radio"
+            name="report"
+            value="/reports/studiesreport"
+            onChange={handleRadioChange}
+          />
+          Studies
+        </label>
+
+        <br />
+        <label>
+          <input
+            type="radio"
+            name="report"
+            value="/reports/occasionsreport"
+            onChange={handleRadioChange}
+          />
+          Occasions
+        </label>
+
+        <br />
+        <label>
+          <input
+            type="radio"
+            name="report"
+            value="/reports/prayersreport"
+            onChange={handleRadioChange}
+          />
+          Prayers
+        </label>
+
+        <br />
+        <label>
+          <input
+            type="radio"
+            name="report"
+            value="/reports/financialreport"
+            onChange={handleRadioChange}
+          />
+          Financial
+        </label>
       </div>
 
       <div className="mt-3">
